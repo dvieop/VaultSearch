@@ -16,9 +16,13 @@ public class VSSearchMenu extends Menu {
 
     public VSSearchMenu(Player player, Category category) {
         super(VaultSearch.config.search_size);
-        setTitle(VaultSearch.config.search_title.replace("%category%", category.toString()));
+        setTitle(VaultSearch.config.search_title.replace("%category%", category.flag().name()));
         setNextPageButton(VaultSearch.config.nextPageSlot, VaultSearch.config.nextPage);
         setPreviousPageButton(VaultSearch.config.previousPageSlot, VaultSearch.config.previousPage);
+
+        setItem(VaultSearch.config.closeSlot, new MenuItem(VaultSearch.config.close).executes((inventoryClickEvent, menu) -> {
+            player.closeInventory();
+        }));
 
         for (int slot : VaultSearch.config.borderSlots) {
             setItem(slot, new MenuItem(VaultSearch.config.borderItem));
@@ -35,9 +39,6 @@ public class VSSearchMenu extends Menu {
             });
 
             addListedItem(menuItem);
-            setItem(VaultSearch.config.closeSlot, new MenuItem(VaultSearch.config.close).executes((inventoryClickEvent, menu) -> {
-                player.closeInventory();
-            }));
         }
     }
 
